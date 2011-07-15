@@ -20,20 +20,19 @@ import org.gradle.GradleLauncher;
 import org.gradle.initialization.ClassLoaderRegistry;
 import org.gradle.initialization.DefaultGradleLauncher;
 import org.gradle.initialization.GradleLauncherAction;
-import org.gradle.tooling.internal.protocol.ProjectVersion3;
 import org.gradle.util.UncheckedException;
 
 import java.io.Serializable;
 
-class DelegatingBuildModelAction implements GradleLauncherAction<ProjectVersion3>, Serializable {
-    private transient GradleLauncherAction<ProjectVersion3> action;
-    private final Class<? extends ProjectVersion3> type;
+class DelegatingBuildModelAction implements GradleLauncherAction, Serializable {
+    private transient GradleLauncherAction action;
+    private final Class type;
 
-    public DelegatingBuildModelAction(Class<? extends ProjectVersion3> type) {
+    public DelegatingBuildModelAction(Class type) {
         this.type = type;
     }
 
-    public ProjectVersion3 getResult() {
+    public Object getResult() {
         return action.getResult();
     }
 
@@ -46,7 +45,14 @@ class DelegatingBuildModelAction implements GradleLauncherAction<ProjectVersion3
         DefaultGradleLauncher gradleLauncher = launcher;
         ClassLoaderRegistry classLoaderRegistry = gradleLauncher.getGradle().getServices().get(ClassLoaderRegistry.class);
         try {
-            action = (GradleLauncherAction<ProjectVersion3>) classLoaderRegistry.getRootClassLoader().loadClass("org.gradle.tooling.internal.provider.BuildModelAction").getConstructor(Class.class).newInstance(type);
+            //TODO SF - horrible, ugly
+            if (type.toString().endsWith("org.gradle.tooling.model.idea.IdeaProject")) {
+                action = (GradleLauncherAction) classLoaderRegistry.getRootClassLoader()
+                    .loadClass("org.gradle.tooling.internal.provider.BuildIdeaModelAction").getConstructor(Class.class).newInstance(type);
+            } else {
+                action = (GradleLauncherAction) classLoaderRegistry.getRootClassLoader()
+                    .loadClass("org.gradle.tooling.internal.provider.BuildModelAction").getConstructor(Class.class).newInstance(type);
+            }
         } catch (Exception e) {
             throw UncheckedException.asUncheckedException(e);
         }

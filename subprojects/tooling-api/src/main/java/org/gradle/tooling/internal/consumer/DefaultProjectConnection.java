@@ -26,13 +26,14 @@ import org.gradle.tooling.model.HierarchicalProject;
 import org.gradle.tooling.model.Project;
 import org.gradle.tooling.model.eclipse.EclipseProject;
 import org.gradle.tooling.model.eclipse.HierarchicalEclipseProject;
+import org.gradle.tooling.model.idea.IdeaProject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 class DefaultProjectConnection implements ProjectConnection {
     private final AsyncConnection connection;
-    private final Map<Class<? extends Project>, Class<? extends ProjectVersion3>> modelTypeMap = new HashMap<Class<? extends Project>, Class<? extends ProjectVersion3>>();
+    private final Map<Class<? extends Project>, Class> modelTypeMap = new HashMap<Class<? extends Project>, Class>();
     private ProtocolToModelAdapter adapter;
     private final ConnectionParameters parameters;
 
@@ -45,6 +46,7 @@ class DefaultProjectConnection implements ProjectConnection {
         modelTypeMap.put(HierarchicalProject.class, HierarchicalProjectVersion1.class);
         modelTypeMap.put(HierarchicalEclipseProject.class, HierarchicalEclipseProjectVersion1.class);
         modelTypeMap.put(EclipseProject.class, EclipseProjectVersion3.class);
+        modelTypeMap.put(IdeaProject.class, IdeaProject.class);
     }
 
     public void close() {
@@ -67,8 +69,8 @@ class DefaultProjectConnection implements ProjectConnection {
         return new DefaultModelBuilder<T>(modelType, mapToProtocol(modelType), connection, adapter, parameters);
     }
 
-    private Class<? extends ProjectVersion3> mapToProtocol(Class<? extends Project> viewType) {
-        Class<? extends ProjectVersion3> protocolViewType = modelTypeMap.get(viewType);
+    private Class mapToProtocol(Class<? extends Project> viewType) {
+        Class protocolViewType = modelTypeMap.get(viewType);
         if (protocolViewType == null) {
             throw new UnsupportedVersionException(String.format("Model of type '%s' is not supported.", viewType.getSimpleName()));
         }
