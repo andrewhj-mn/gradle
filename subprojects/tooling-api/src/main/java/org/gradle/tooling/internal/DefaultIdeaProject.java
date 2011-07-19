@@ -16,6 +16,7 @@
 package org.gradle.tooling.internal;
 
 import org.gradle.tooling.internal.protocol.ProjectVersion3;
+import org.gradle.tooling.model.idea.IdeaModule;
 import org.gradle.tooling.model.idea.IdeaProject;
 
 import java.io.File;
@@ -28,17 +29,15 @@ public class DefaultIdeaProject implements IdeaProject, Serializable, ProjectVer
     private String name;
     private String description;
     private File projectDirectory;
-    private List<ProjectVersion3> children;
-    private ProjectVersion3 parent;
     private String javaVersion;
     private String languageLevel;
+    private List<? extends IdeaModule> modules;
 
-    public DefaultIdeaProject(String name, String path, String description, File projectDirectory, List<ProjectVersion3> children) {
+    public DefaultIdeaProject(String name, String path, String description, File projectDirectory) {
         this.path = path;
         this.name = name;
         this.description = description;
         this.projectDirectory = projectDirectory;
-        this.children = children;
     }
 
     public String getPath() {
@@ -57,22 +56,6 @@ public class DefaultIdeaProject implements IdeaProject, Serializable, ProjectVer
         return projectDirectory;
     }
 
-    public ProjectVersion3 getParent() {
-        return parent;
-    }
-
-    public void setParent(ProjectVersion3 parent) {
-        this.parent = parent;
-    }
-
-    public List<ProjectVersion3> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<ProjectVersion3> children) {
-        this.children = children;
-    }
-
     public String getJavaVersion() {
         return javaVersion;
     }
@@ -87,5 +70,13 @@ public class DefaultIdeaProject implements IdeaProject, Serializable, ProjectVer
 
     public void setLanguageLevel(String languageLevel) {
         this.languageLevel = languageLevel;
+    }
+
+    public List<? extends IdeaModule> getModules() {
+        return modules;
+    }
+
+    public void setModules(List<? extends IdeaModule> modules) {
+        this.modules = modules;
     }
 }

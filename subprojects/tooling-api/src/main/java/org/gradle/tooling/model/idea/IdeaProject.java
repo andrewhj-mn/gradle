@@ -17,6 +17,8 @@ package org.gradle.tooling.model.idea;
 
 import org.gradle.tooling.model.Project;
 
+import java.util.List;
+
 /**
  * First hacky approach to provide idea information
  */
@@ -32,7 +34,7 @@ public interface IdeaProject extends Project {
   /**
    * @return modules of the current project.
    */
-//List<IdeaModule> getModules();
+  List<? extends IdeaModule> getModules();
 
   /**
    * @return not-<code>null</code> version of the JDK to use with the current project

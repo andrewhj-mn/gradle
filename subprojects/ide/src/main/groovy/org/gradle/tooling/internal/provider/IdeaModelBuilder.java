@@ -20,14 +20,14 @@ import org.gradle.api.Project;
 import org.gradle.api.internal.GradleInternal;
 import org.gradle.plugins.ide.idea.IdeaPlugin;
 import org.gradle.plugins.ide.idea.model.IdeaModel;
+import org.gradle.plugins.ide.idea.model.IdeaModule;
+import org.gradle.plugins.ide.idea.model.IdeaProject;
+import org.gradle.tooling.internal.DefaultIdeaModule;
 import org.gradle.tooling.internal.DefaultIdeaProject;
 import org.gradle.tooling.internal.protocol.ProjectVersion3;
-import org.gradle.util.ReflectionUtil;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author: Szczepan Faber, created at: 7/19/11
@@ -35,8 +35,7 @@ import java.util.Map;
 public class IdeaModelBuilder implements BuildsModel {
 
     private boolean projectDependenciesOnly = true;
-    private Object currentProject;
-    private final Map<String, ProjectVersion3> projectMapping = new HashMap<String, ProjectVersion3>();
+//    private final Map<String, ProjectVersion3> projectMapping = new HashMap<String, ProjectVersion3>();
     private GradleInternal gradle;
     private final TasksFactory tasksFactory;
 
@@ -50,17 +49,17 @@ public class IdeaModelBuilder implements BuildsModel {
         Project root = gradle.getRootProject();
         tasksFactory.collectTasks(root);
         new IdeaPluginApplier().apply(root);
-        buildHierarchy(root);
+        ProjectVersion3 ideaProject = buildHierarchy(root);
         populate(root);
-        return currentProject;
+        return ideaProject;
     }
 
-    private void addProject(Project project, ProjectVersion3 ideProject) {
-        if (project == gradle.getDefaultProject()) {
-            currentProject = ideProject;
-        }
-        projectMapping.put(project.getPath(), ideProject);
-    }
+//    private void addProject(Project project, ProjectVersion3 ideProject) {
+//        if (project == gradle.getDefaultProject()) {
+//            currentProject = ideProject;
+//        }
+//        projectMapping.put(project.getPath(), ideProject);
+//    }
 
     private void populate(Project project) {
         IdeaModel ideaModel = project.getPlugins().getPlugin(IdeaPlugin.class).getModel();
@@ -115,22 +114,26 @@ public class IdeaModelBuilder implements BuildsModel {
     }
 
     private ProjectVersion3 buildHierarchy(Project project) {
-        List<ProjectVersion3> children = new ArrayList<ProjectVersion3>();
-        for (Project child : project.getChildProjects().values()) {
-            children.add(buildHierarchy(child));
-        }
+//        List<ProjectVersion3> children = new ArrayList<ProjectVersion3>();
+//        for (Project child : project.getChildProjects().values()) {
+//            children.add(buildHierarchy(child));
+//        }
 
         IdeaModel ideaModel = project.getPlugins().getPlugin(IdeaPlugin.class).getModel();
-        String name = ideaModel.getProject().getName();
+        IdeaProject projectModel = ideaModel.getProject();
 
-        DefaultIdeaProject newProject = new DefaultIdeaProject(name, project.getPath(), null, project.getProjectDir(), children);
-        newProject.setJavaVersion(ideaModel.getProject().getJavaVersion().toString());
-        newProject.setLanguageLevel(ideaModel.getProject().getLanguageLevel().getFormatted());
+        DefaultIdeaProject newProject = new DefaultIdeaProject(projectModel.getName(), project.getPath(), null, project.getProjectDir());
+        newProject.setJavaVersion(projectModel.getJavaVersion().toString());
+        newProject.setLanguageLevel(projectModel.getLanguageLevel().getFormatted());
 
-        for (Object child : children) {
-            ReflectionUtil.setProperty(child, "parent", newProject);
+        List<DefaultIdeaModule> modules = new LinkedList<DefaultIdeaModule>();
+        for (IdeaModule module: projectModel.getModules()) {
+            DefaultIdeaModule defaultIdeaModule = new DefaultIdeaModule();
+            modules.add(defaultIdeaModule);
         }
-        addProject(project, newProject);
+        newProject.setModules(modules);
+
+//        addProject(project, newProject);
         return newProject;
     }
 }
