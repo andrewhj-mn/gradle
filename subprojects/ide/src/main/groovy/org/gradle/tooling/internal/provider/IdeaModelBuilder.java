@@ -142,6 +142,7 @@ public class IdeaModelBuilder implements BuildsModel {
         defaultIdeaModule.setSourceDirectories(new LinkedList<File>(module.getSourceDirs()));
         defaultIdeaModule.setTestDirectories(new LinkedList<File>(module.getTestSourceDirs()));
         defaultIdeaModule.setExcludeDirectories(new LinkedList<File>(module.getExcludeDirs()));
+        defaultIdeaModule.setContentRoot(module.getContentRoot());
         defaultIdeaModule.setName(module.getName());
         modules.add(defaultIdeaModule);
     }

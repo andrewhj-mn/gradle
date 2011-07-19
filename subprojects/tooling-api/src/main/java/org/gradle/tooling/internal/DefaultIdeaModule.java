@@ -30,6 +30,7 @@ public class DefaultIdeaModule implements IdeaModule {
     List<File> sourceDirectories;
     List<File> testDirectories;
     List<File> excludeDirectories;
+    File contentRoot;
 
     public String getName() {
         return name;
@@ -61,5 +62,13 @@ public class DefaultIdeaModule implements IdeaModule {
 
     public void setExcludeDirectories(List<File> excludeDirectories) {
         this.excludeDirectories = excludeDirectories;
+    }
+
+    public File getContentRoot() {
+        return contentRoot;
+    }
+
+    public void setContentRoot(File contentRoot) {
+        this.contentRoot = contentRoot;
     }
 }

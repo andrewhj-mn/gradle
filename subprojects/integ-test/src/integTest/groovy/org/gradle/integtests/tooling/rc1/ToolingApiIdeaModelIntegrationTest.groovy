@@ -76,6 +76,18 @@ subprojects {
         project.modules.any { it.name == 'impl' }
     }
 
+    def "provides basic module information"() {
+        def projectDir = dist.testDir
+        projectDir.file('build.gradle').text = "apply plugin: 'java'"
+
+        when:
+        IdeaProject project = withConnection { connection -> connection.getModel(IdeaProject.class) }
+        def module = project.modules[0]
+
+        then:
+        module.contentRoot == projectDir
+    }
+
     def "provides source dir information"() {
         def projectDir = dist.testDir
         projectDir.file('build.gradle').text = "apply plugin: 'java'"
