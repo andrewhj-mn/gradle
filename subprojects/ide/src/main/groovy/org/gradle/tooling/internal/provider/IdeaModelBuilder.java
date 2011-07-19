@@ -129,6 +129,7 @@ public class IdeaModelBuilder implements BuildsModel {
         List<DefaultIdeaModule> modules = new LinkedList<DefaultIdeaModule>();
         for (IdeaModule module: projectModel.getModules()) {
             DefaultIdeaModule defaultIdeaModule = new DefaultIdeaModule();
+            defaultIdeaModule.setName(module.getName());
             modules.add(defaultIdeaModule);
         }
         newProject.setModules(modules);

@@ -57,4 +57,23 @@ idea.project {
         project.languageLevel == 'JDK_1_5'
         project.javaVersion == '1.6'
     }
+
+    def "provides all modules"() {
+        def projectDir = dist.testDir
+        projectDir.file('build.gradle').text = '''
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+}
+'''
+        projectDir.file('settings.gradle').text = "include 'api', 'impl'"
+
+        when:
+        IdeaProject project = withConnection { connection -> connection.getModel(IdeaProject.class) }
+
+        then:
+        project.modules.size() == 3
+        project.modules.any { it.name == 'api' }
+        project.modules.any { it.name == 'impl' }
+    }
 }

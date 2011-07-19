@@ -22,4 +22,14 @@ import org.gradle.tooling.model.idea.IdeaModule;
  * @author: Szczepan Faber, created at: 7/19/11
  */
 public class DefaultIdeaModule implements IdeaModule {
+
+    String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

@@ -20,4 +20,9 @@ package org.gradle.tooling.model.idea;
  * @author: Szczepan Faber, created at: 7/19/11
  */
 public interface IdeaModule {
+
+    /**
+     * @return the module name; not-<code>null</code>
+     */
+    String getName();
 }
