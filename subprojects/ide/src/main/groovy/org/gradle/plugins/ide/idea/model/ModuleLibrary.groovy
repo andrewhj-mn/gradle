@@ -57,6 +57,29 @@ class ModuleLibrary implements Dependency {
         this.exported = !scope || scope == 'COMPILE' || scope == 'RUNTIME'
     }
 
+    File getSingleJar() {
+        assert this.classes.size() == 1
+        this.classes.iterator().next().file
+    }
+
+    File getSingleJavadoc() {
+        assert this.classes.size() == 1
+        if (javadoc.size() > 0) {
+            return this.javadoc.iterator().next().file
+        } else {
+            return null
+        }
+    }
+
+    File getSingleSource() {
+        assert this.classes.size() == 1
+        if (sources.size() > 0) {
+            return this.sources.iterator().next().file
+        } else {
+            return null
+        }
+    }
+
     void addToNode(Node parentNode) {
         Node libraryNode = parentNode.appendNode('orderEntry', [type: 'module-library'] + getAttributeMapForScopeAndExported()).appendNode('library')
         Node classesNode = libraryNode.appendNode('CLASSES')

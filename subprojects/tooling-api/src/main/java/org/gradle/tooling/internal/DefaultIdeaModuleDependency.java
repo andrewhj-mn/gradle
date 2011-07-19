@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package org.gradle.tooling.model.idea;
+package org.gradle.tooling.internal;
+
+import org.gradle.tooling.model.idea.IdeaModuleDependency;
 
 /**
  * @author: Szczepan Faber, created at: 7/19/11

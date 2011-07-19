@@ -20,10 +20,11 @@ import org.gradle.api.Project;
 import org.gradle.api.internal.GradleInternal;
 import org.gradle.plugins.ide.idea.IdeaPlugin;
 import org.gradle.plugins.ide.idea.model.*;
+import org.gradle.tooling.internal.DefaultIdeaLibraryDependency;
 import org.gradle.tooling.internal.DefaultIdeaModule;
+import org.gradle.tooling.internal.DefaultIdeaModuleDependency;
 import org.gradle.tooling.internal.DefaultIdeaProject;
 import org.gradle.tooling.internal.protocol.ProjectVersion3;
-import org.gradle.tooling.model.idea.DefaultIdeaModuleDependency;
 import org.gradle.tooling.model.idea.IdeaDependency;
 
 import java.io.File;
@@ -154,7 +155,14 @@ public class IdeaModelBuilder implements BuildsModel {
         List<IdeaDependency> dependencies = new LinkedList<IdeaDependency>();
         Set<Dependency> resolved = module.resolveDependencies();
         for (Dependency dependency: resolved) {
-            if (dependency instanceof ModuleDependency) {
+            if (dependency instanceof ModuleLibrary) {
+                File file = ((ModuleLibrary) dependency).getSingleJar();
+                File javadoc = ((ModuleLibrary) dependency).getSingleJavadoc();
+                File source = ((ModuleLibrary) dependency).getSingleSource();
+                boolean exported = ((ModuleLibrary) dependency).getExported();
+                IdeaDependency.Scope scope = IdeaDependency.Scope.valueOf(((ModuleLibrary) dependency).getScope());
+                dependencies.add(new DefaultIdeaLibraryDependency(file, source, javadoc, scope, exported));
+            } else if (dependency instanceof ModuleDependency) {
                 String name = ((ModuleDependency) dependency).getName();
                 boolean exported = ((ModuleDependency) dependency).getExported();
                 IdeaDependency.Scope scope = IdeaDependency.Scope.valueOf(((ModuleDependency) dependency).getScope());

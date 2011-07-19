@@ -76,7 +76,7 @@ subprojects {
         project.modules.any { it.name == 'impl' }
     }
 
-     def "provides module dependencies"() {
+    def "provides dependencies"() {
         def projectDir = dist.testDir
         projectDir.file('build.gradle').text = '''
 subprojects {
@@ -84,8 +84,11 @@ subprojects {
 }
 
 project(':impl') {
+    repositories { mavenCentral() }
+
     dependencies {
         compile project(':api')
+        testCompile 'junit:junit:4.5'
     }
 }
 '''
@@ -96,10 +99,23 @@ project(':impl') {
         def module = project.modules.find { it.name == 'impl' }
 
         then:
-        module.dependencies.size() == 1
-        module.dependencies[0].dependencyModuleName == 'api'
-        module.dependencies[0].scope.toString() == 'COMPILE'
-        module.dependencies[0].exported
+        //TODO SF the dependencies in our IDE model must not be modelled as Set because the order matters!
+        def deps = module.dependencies.sort { a,b ->
+            a.hasProperty("javadoc") ? 0 : 1
+        }
+        deps.size() == 2
+
+        deps[0].file.exists()
+        deps[0].file.path.endsWith('junit-4.5.jar')
+        //TODO SF find library that has javadocs :)
+//        deps[0].javadoc.exists()
+        deps[0].source.exists()
+        deps[0].source.path.endsWith('junit-4.5-sources.jar')
+        deps[0].scope.toString() == 'TEST'
+
+        deps[1].dependencyModuleName == 'api'
+        deps[1].scope.toString() == 'COMPILE'
+        deps[1].exported
     }
 
     def "provides basic module information"() {
