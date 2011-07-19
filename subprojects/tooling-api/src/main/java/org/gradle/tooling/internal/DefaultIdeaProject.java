@@ -20,6 +20,7 @@ import org.gradle.tooling.model.idea.IdeaProject;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.List;
 
 public class DefaultIdeaProject implements IdeaProject, Serializable, ProjectVersion3 {
 
@@ -27,12 +28,15 @@ public class DefaultIdeaProject implements IdeaProject, Serializable, ProjectVer
     private String name;
     private String description;
     private File projectDirectory;
+    private List<ProjectVersion3> children;
+    private ProjectVersion3 parent;
 
-    public DefaultIdeaProject(String path, String name, String description, File projectDirectory) {
+    public DefaultIdeaProject(String name, String path, String description, File projectDirectory, List<ProjectVersion3> children) {
         this.path = path;
         this.name = name;
         this.description = description;
         this.projectDirectory = projectDirectory;
+        this.children = children;
     }
 
     public String getPath() {
@@ -49,5 +53,21 @@ public class DefaultIdeaProject implements IdeaProject, Serializable, ProjectVer
 
     public File getProjectDirectory() {
         return projectDirectory;
+    }
+
+    public ProjectVersion3 getParent() {
+        return parent;
+    }
+
+    public void setParent(ProjectVersion3 parent) {
+        this.parent = parent;
+    }
+
+    public List<ProjectVersion3> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<ProjectVersion3> children) {
+        this.children = children;
     }
 }

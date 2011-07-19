@@ -29,14 +29,13 @@ description = 'this is a project'
         projectDir.file('settings.gradle').text = 'rootProject.name = \"test project\"'
 
         when:
-        IdeaProject fullProject = withConnection { connection -> connection.getModel(IdeaProject.class) }
+        IdeaProject project = withConnection { connection -> connection.getModel(IdeaProject.class) }
 
         then:
-        fullProject.path == 'foo'
-//        fullProject.name == 'test project'
-//        fullProject.description == 'this is a project'
-//        fullProject.projectDirectory == projectDir
-//        fullProject.parent == null
-//        fullProject.children.empty
+        project.name == 'test project'
+        project.description == null
+        project.projectDirectory == projectDir
+//        project.parent == null
+//        project.children.empty
     }
 }

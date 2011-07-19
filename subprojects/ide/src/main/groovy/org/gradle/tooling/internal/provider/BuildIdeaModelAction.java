@@ -23,7 +23,7 @@ public class BuildIdeaModelAction implements GradleLauncherAction {
     private ModelBuildingAdapter modelBuildingAdapter;
 
     public BuildIdeaModelAction(Class type) {
-        modelBuildingAdapter = new ModelBuildingAdapter(new IdeaModelBuilder());
+        modelBuildingAdapter = new ModelBuildingAdapter(new IdeaModelBuilder(true, false));
     }
 
     public BuildResult run(GradleLauncher launcher) {

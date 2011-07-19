@@ -21,4 +21,6 @@ import org.gradle.tooling.model.Project;
  * First hacky approach to provide idea information
  */
 public interface IdeaProject extends Project {
+
+
 }
