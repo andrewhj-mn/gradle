@@ -37,7 +37,7 @@ import java.util.*;
 /**
 * @author Adam Murdoch, Szczepan Faber, @date: 17.03.11
 */
-public class ModelBuilder {
+public class ModelBuilder implements BuildsModel {
     private boolean projectDependenciesOnly;
     private Object currentProject;
     private final Map<String, EclipseProjectVersion3> projectMapping = new HashMap<String, EclipseProjectVersion3>();

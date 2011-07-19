@@ -16,28 +16,11 @@
 
 package org.gradle.tooling.internal.provider;
 
-import org.gradle.BuildAdapter;
 import org.gradle.api.internal.GradleInternal;
-import org.gradle.api.invocation.Gradle;
 
 /**
- * @author Szczepan Faber, @date: 25.03.11
+ * @author: Szczepan Faber, created at: 7/19/11
  */
-public class ModelBuildingAdapter extends BuildAdapter {
-
-    private final BuildsModel builder;
-    private Object result;
-
-    public ModelBuildingAdapter(BuildsModel builder) {
-        this.builder = builder;
-    }
-
-    @Override
-    public void projectsEvaluated(Gradle gradle) {
-        result = builder.buildAll((GradleInternal) gradle);
-    }
-
-    public Object getResult() {
-        return result;
-    }
+public interface BuildsModel {
+    Object buildAll(GradleInternal gradle);
 }

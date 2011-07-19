@@ -18,26 +18,20 @@ package org.gradle.tooling.internal.provider;
 import org.gradle.BuildResult;
 import org.gradle.GradleLauncher;
 import org.gradle.initialization.GradleLauncherAction;
-import org.gradle.tooling.internal.DefaultIdeaProject;
-
-import java.io.File;
 
 public class BuildIdeaModelAction implements GradleLauncherAction {
-//    private ModelBuildingAdapter modelBuildingAdapter;
+    private ModelBuildingAdapter modelBuildingAdapter;
 
     public BuildIdeaModelAction(Class type) {
-//        ModelBuilder defaultBuilder = new ModelBuilder(includeTasks, projectDependenciesOnly);
-
-//        modelBuildingAdapter = new ModelBuildingAdapter(defaultBuilder);
+        modelBuildingAdapter = new ModelBuildingAdapter(new IdeaModelBuilder());
     }
 
     public BuildResult run(GradleLauncher launcher) {
-//        launcher.addListener(modelBuildingAdapter);
+        launcher.addListener(modelBuildingAdapter);
         return launcher.getBuildAnalysis();
     }
 
     public Object getResult() {
-         //modelBuildingAdapter.getProject();
-        return new DefaultIdeaProject("foo", "bar", "baz", new File("."));
+        return modelBuildingAdapter.getResult();
     }
 }
