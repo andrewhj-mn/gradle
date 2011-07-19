@@ -63,7 +63,6 @@ idea.project {
         projectDir.file('build.gradle').text = '''
 subprojects {
     apply plugin: 'java'
-    apply plugin: 'eclipse'
 }
 '''
         projectDir.file('settings.gradle').text = "include 'api', 'impl'"
@@ -108,5 +107,20 @@ subprojects {
         module.testDirectories.any { it.path.endsWith 'src/test/resources' }
     }
 
+    def "provides excluded dir information"() {
+        def projectDir = dist.testDir
+        projectDir.file('build.gradle').text = """
+apply plugin: 'java'
+apply plugin: 'idea'
 
+idea.module.excludeDirs += file('foo')
+"""
+
+        when:
+        IdeaProject project = withConnection { connection -> connection.getModel(IdeaProject.class) }
+        def module = project.modules[0]
+
+        then:
+        module.excludeDirectories.any { it.path.endsWith 'foo' }
+    }
 }

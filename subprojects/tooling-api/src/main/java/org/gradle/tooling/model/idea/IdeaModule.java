@@ -101,6 +101,11 @@ public interface IdeaModule {
      */
     List<File> getTestDirectories();
 
+    /**
+     * @return test dirs
+     */
+    List<File> getExcludeDirectories();
+
   /**
    * Allows to answer if current module should use {@link IdeaProject#getOutputDir() project output directory}.
    * <p/>
