@@ -86,6 +86,7 @@ subprojects {
 
         then:
         module.contentRoot == projectDir
+        module.project.projectDirectory == project.projectDirectory
     }
 
     def "provides source dir information"() {

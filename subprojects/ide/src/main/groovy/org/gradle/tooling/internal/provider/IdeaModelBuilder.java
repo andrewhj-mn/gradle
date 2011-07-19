@@ -129,7 +129,7 @@ public class IdeaModelBuilder implements BuildsModel {
 
         List<DefaultIdeaModule> modules = new LinkedList<DefaultIdeaModule>();
         for (IdeaModule module: projectModel.getModules()) {
-            buildModule(modules, module);
+            buildModule(modules, module, newProject);
         }
         newProject.setModules(modules);
 
@@ -137,13 +137,14 @@ public class IdeaModelBuilder implements BuildsModel {
         return newProject;
     }
 
-    private void buildModule(List<DefaultIdeaModule> modules, IdeaModule module) {
+    private void buildModule(List<DefaultIdeaModule> modules, IdeaModule module, DefaultIdeaProject newProject) {
         DefaultIdeaModule defaultIdeaModule = new DefaultIdeaModule();
         defaultIdeaModule.setSourceDirectories(new LinkedList<File>(module.getSourceDirs()));
         defaultIdeaModule.setTestDirectories(new LinkedList<File>(module.getTestSourceDirs()));
         defaultIdeaModule.setExcludeDirectories(new LinkedList<File>(module.getExcludeDirs()));
         defaultIdeaModule.setContentRoot(module.getContentRoot());
         defaultIdeaModule.setName(module.getName());
+        defaultIdeaModule.setProject(newProject);
         modules.add(defaultIdeaModule);
     }
 }

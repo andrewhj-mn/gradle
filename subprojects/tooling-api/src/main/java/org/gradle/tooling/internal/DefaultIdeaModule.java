@@ -17,6 +17,7 @@
 package org.gradle.tooling.internal;
 
 import org.gradle.tooling.model.idea.IdeaModule;
+import org.gradle.tooling.model.idea.IdeaProject;
 
 import java.io.File;
 import java.util.List;
@@ -31,6 +32,7 @@ public class DefaultIdeaModule implements IdeaModule {
     List<File> testDirectories;
     List<File> excludeDirectories;
     File contentRoot;
+    IdeaProject ideaProject;
 
     public String getName() {
         return name;
@@ -70,5 +72,13 @@ public class DefaultIdeaModule implements IdeaModule {
 
     public void setContentRoot(File contentRoot) {
         this.contentRoot = contentRoot;
+    }
+
+    public IdeaProject getProject() {
+        return ideaProject;
+    }
+
+    public void setProject(IdeaProject ideaProject) {
+        this.ideaProject = ideaProject;
     }
 }

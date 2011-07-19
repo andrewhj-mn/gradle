@@ -42,7 +42,7 @@ public interface IdeaModule {
     /**
      * @return not-<code>null</code> instance of the project current module belongs to
      */
-//  IdeaProject getProject();
+    IdeaProject getProject();
 
     /**
      * @return content root
