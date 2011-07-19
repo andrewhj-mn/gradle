@@ -28,6 +28,7 @@ public class DefaultIdeaModule implements IdeaModule {
 
     String name;
     List<File> sourceDirectories;
+    List<File> testDirectories;
 
     public String getName() {
         return name;
@@ -43,5 +44,13 @@ public class DefaultIdeaModule implements IdeaModule {
 
     public void setSourceDirectories(List<File> sourceDirectories) {
         this.sourceDirectories = sourceDirectories;
+    }
+
+    public List<File> getTestDirectories() {
+        return testDirectories;
+    }
+
+    public void setTestDirectories(List<File> testDirectories) {
+        this.testDirectories = testDirectories;
     }
 }

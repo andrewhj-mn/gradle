@@ -102,5 +102,11 @@ subprojects {
         module.sourceDirectories.size() == 2
         module.sourceDirectories.any { it.path.endsWith 'src/main/java' }
         module.sourceDirectories.any { it.path.endsWith 'src/main/resources' }
+
+        module.testDirectories.size() == 2
+        module.testDirectories.any { it.path.endsWith 'src/test/java' }
+        module.testDirectories.any { it.path.endsWith 'src/test/resources' }
     }
+
+
 }

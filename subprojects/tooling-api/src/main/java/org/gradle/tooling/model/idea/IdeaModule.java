@@ -96,6 +96,11 @@ public interface IdeaModule {
      */
     List<File> getSourceDirectories();
 
+    /**
+     * @return test dirs
+     */
+    List<File> getTestDirectories();
+
   /**
    * Allows to answer if current module should use {@link IdeaProject#getOutputDir() project output directory}.
    * <p/>

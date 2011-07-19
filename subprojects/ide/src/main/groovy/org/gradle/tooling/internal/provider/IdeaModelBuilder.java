@@ -140,6 +140,7 @@ public class IdeaModelBuilder implements BuildsModel {
     private void buildModule(List<DefaultIdeaModule> modules, IdeaModule module) {
         DefaultIdeaModule defaultIdeaModule = new DefaultIdeaModule();
         defaultIdeaModule.setSourceDirectories(new LinkedList<File>(module.getSourceDirs()));
+        defaultIdeaModule.setTestDirectories(new LinkedList<File>(module.getTestSourceDirs()));
         defaultIdeaModule.setName(module.getName());
         modules.add(defaultIdeaModule);
     }
