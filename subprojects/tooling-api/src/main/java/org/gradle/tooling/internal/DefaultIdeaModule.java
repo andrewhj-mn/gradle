@@ -33,6 +33,7 @@ public class DefaultIdeaModule implements IdeaModule {
     List<File> excludeDirectories;
     File contentRoot;
     IdeaProject ideaProject;
+    File moduleFileDir;
 
     public String getName() {
         return name;
@@ -80,5 +81,13 @@ public class DefaultIdeaModule implements IdeaModule {
 
     public void setProject(IdeaProject ideaProject) {
         this.ideaProject = ideaProject;
+    }
+
+    public File getModuleFileDir() {
+        return moduleFileDir;
+    }
+
+    public void setModuleFileDir(File moduleFileDir) {
+        this.moduleFileDir = moduleFileDir;
     }
 }

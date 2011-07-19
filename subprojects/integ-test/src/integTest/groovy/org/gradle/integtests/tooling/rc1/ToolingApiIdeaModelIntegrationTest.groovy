@@ -86,6 +86,7 @@ subprojects {
 
         then:
         module.contentRoot == projectDir
+        module.moduleFileDir == dist.testDir
         module.project.projectDirectory == project.projectDirectory
     }
 

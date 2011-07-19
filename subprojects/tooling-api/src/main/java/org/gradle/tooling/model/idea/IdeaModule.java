@@ -30,14 +30,9 @@ public interface IdeaModule {
     String getName();
 
     /**
-     * Allows to retrieve information about location of the module config file (*.iml) at the file system.
-     * <p/>
-     * Based on the following property -
-     * <a href="http://www.gradle.org/current/docs/groovydoc/org/gradle/plugins/ide/idea/model/IdeaModuleIml.html#generateTo>IdeaModuleIml.generateTo</a>.
-     *
-     * @return directory where config file (*.iml) of the current module should be stored
+     * @return the folder containing module file (*.iml)
      */
-//  File getModuleFileLocation();
+    File getModuleFileDir();
 
     /**
      * @return not-<code>null</code> instance of the project current module belongs to

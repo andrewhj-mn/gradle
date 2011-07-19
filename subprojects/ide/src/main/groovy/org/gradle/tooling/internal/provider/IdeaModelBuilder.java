@@ -145,6 +145,7 @@ public class IdeaModelBuilder implements BuildsModel {
         defaultIdeaModule.setContentRoot(module.getContentRoot());
         defaultIdeaModule.setName(module.getName());
         defaultIdeaModule.setProject(newProject);
+        defaultIdeaModule.setModuleFileDir(module.getIml().getGenerateTo());
         modules.add(defaultIdeaModule);
     }
 }
