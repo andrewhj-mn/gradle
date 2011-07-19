@@ -30,6 +30,8 @@ public class DefaultIdeaProject implements IdeaProject, Serializable, ProjectVer
     private File projectDirectory;
     private List<ProjectVersion3> children;
     private ProjectVersion3 parent;
+    private String javaVersion;
+    private String languageLevel;
 
     public DefaultIdeaProject(String name, String path, String description, File projectDirectory, List<ProjectVersion3> children) {
         this.path = path;
@@ -69,5 +71,21 @@ public class DefaultIdeaProject implements IdeaProject, Serializable, ProjectVer
 
     public void setChildren(List<ProjectVersion3> children) {
         this.children = children;
+    }
+
+    public String getJavaVersion() {
+        return javaVersion;
+    }
+
+    public void setJavaVersion(String javaVersion) {
+        this.javaVersion = javaVersion;
+    }
+
+    public String getLanguageLevel() {
+        return languageLevel;
+    }
+
+    public void setLanguageLevel(String languageLevel) {
+        this.languageLevel = languageLevel;
     }
 }

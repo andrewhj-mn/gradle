@@ -20,7 +20,7 @@ import org.gradle.tooling.model.idea.IdeaProject
 
 class ToolingApiIdeaModelIntegrationTest extends ToolingApiSpecification {
 
-    def "can build the idea model for a java project"() {
+    def "builds the model even if idea plugin not applied"() {
         def projectDir = dist.testDir
         projectDir.file('build.gradle').text = '''
 apply plugin: 'java'
@@ -35,7 +35,25 @@ description = 'this is a project'
         project.name == 'test project'
         project.description == null
         project.projectDirectory == projectDir
-//        project.parent == null
-//        project.children.empty
+    }
+
+    def "provides basic project information"() {
+        def projectDir = dist.testDir
+        projectDir.file('build.gradle').text = """
+apply plugin: 'java'
+apply plugin: 'idea'
+
+idea.project {
+  languageLevel = '1.5'
+  javaVersion = '1.6'
+}
+"""
+
+        when:
+        IdeaProject project = withConnection { connection -> connection.getModel(IdeaProject.class) }
+
+        then:
+        project.languageLevel == 'JDK_1_5'
+        project.javaVersion == '1.6'
     }
 }

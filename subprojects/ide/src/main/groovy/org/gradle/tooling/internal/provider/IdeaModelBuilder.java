@@ -123,7 +123,10 @@ public class IdeaModelBuilder implements BuildsModel {
         IdeaModel ideaModel = project.getPlugins().getPlugin(IdeaPlugin.class).getModel();
         String name = ideaModel.getProject().getName();
 
-        ProjectVersion3 newProject = new DefaultIdeaProject(name, project.getPath(), null, project.getProjectDir(), children);
+        DefaultIdeaProject newProject = new DefaultIdeaProject(name, project.getPath(), null, project.getProjectDir(), children);
+        newProject.setJavaVersion(ideaModel.getProject().getJavaVersion().toString());
+        newProject.setLanguageLevel(ideaModel.getProject().getLanguageLevel().getFormatted());
+
         for (Object child : children) {
             ReflectionUtil.setProperty(child, "parent", newProject);
         }

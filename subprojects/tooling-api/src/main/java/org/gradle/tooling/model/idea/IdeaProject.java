@@ -22,5 +22,26 @@ import org.gradle.tooling.model.Project;
  */
 public interface IdeaProject extends Project {
 
+  /**
+   * Language level to use within the current project.
+   *
+   * @return language level
+   */
+  String getLanguageLevel();
+
+  /**
+   * @return modules of the current project.
+   */
+//List<IdeaModule> getModules();
+
+  /**
+   * @return not-<code>null</code> version of the JDK to use with the current project
+   */
+  String getJavaVersion();
+
+  /**
+   * @return compilation results target dir
+   */
+//  File getOutputDir();
 
 }
