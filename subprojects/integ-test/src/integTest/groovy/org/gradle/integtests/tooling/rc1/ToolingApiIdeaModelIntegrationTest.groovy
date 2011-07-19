@@ -76,6 +76,32 @@ subprojects {
         project.modules.any { it.name == 'impl' }
     }
 
+     def "provides module dependencies"() {
+        def projectDir = dist.testDir
+        projectDir.file('build.gradle').text = '''
+subprojects {
+    apply plugin: 'java'
+}
+
+project(':impl') {
+    dependencies {
+        compile project(':api')
+    }
+}
+'''
+        projectDir.file('settings.gradle').text = "include 'api', 'impl'"
+
+        when:
+        IdeaProject project = withConnection { connection -> connection.getModel(IdeaProject.class) }
+        def module = project.modules.find { it.name == 'impl' }
+
+        then:
+        module.dependencies.size() == 1
+        module.dependencies[0].dependencyModuleName == 'api'
+        module.dependencies[0].scope.toString() == 'COMPILE'
+        module.dependencies[0].exported
+    }
+
     def "provides basic module information"() {
         def projectDir = dist.testDir
         projectDir.file('build.gradle').text = """

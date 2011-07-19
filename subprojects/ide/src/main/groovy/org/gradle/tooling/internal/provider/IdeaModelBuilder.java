@@ -19,16 +19,17 @@ package org.gradle.tooling.internal.provider;
 import org.gradle.api.Project;
 import org.gradle.api.internal.GradleInternal;
 import org.gradle.plugins.ide.idea.IdeaPlugin;
-import org.gradle.plugins.ide.idea.model.IdeaModel;
-import org.gradle.plugins.ide.idea.model.IdeaModule;
-import org.gradle.plugins.ide.idea.model.IdeaProject;
+import org.gradle.plugins.ide.idea.model.*;
 import org.gradle.tooling.internal.DefaultIdeaModule;
 import org.gradle.tooling.internal.DefaultIdeaProject;
 import org.gradle.tooling.internal.protocol.ProjectVersion3;
+import org.gradle.tooling.model.idea.DefaultIdeaModuleDependency;
+import org.gradle.tooling.model.idea.IdeaDependency;
 
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author: Szczepan Faber, created at: 7/19/11
@@ -149,6 +150,19 @@ public class IdeaModelBuilder implements BuildsModel {
         defaultIdeaModule.setInheritOutputDirs(module.getInheritOutputDirs() != null ? module.getInheritOutputDirs() : false);
         defaultIdeaModule.setOutputDir(module.getOutputDir());
         defaultIdeaModule.setTestOutputDir(module.getTestOutputDir());
+
+        List<IdeaDependency> dependencies = new LinkedList<IdeaDependency>();
+        Set<Dependency> resolved = module.resolveDependencies();
+        for (Dependency dependency: resolved) {
+            if (dependency instanceof ModuleDependency) {
+                String name = ((ModuleDependency) dependency).getName();
+                boolean exported = ((ModuleDependency) dependency).getExported();
+                IdeaDependency.Scope scope = IdeaDependency.Scope.valueOf(((ModuleDependency) dependency).getScope());
+                dependencies.add(new DefaultIdeaModuleDependency(scope, name, exported));
+            }
+        }
+        defaultIdeaModule.setDependencies(dependencies);
+
         modules.add(defaultIdeaModule);
     }
 }

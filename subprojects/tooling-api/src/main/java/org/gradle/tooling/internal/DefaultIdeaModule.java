@@ -16,6 +16,7 @@
 
 package org.gradle.tooling.internal;
 
+import org.gradle.tooling.model.idea.IdeaDependency;
 import org.gradle.tooling.model.idea.IdeaModule;
 import org.gradle.tooling.model.idea.IdeaProject;
 
@@ -37,6 +38,7 @@ public class DefaultIdeaModule implements IdeaModule {
     boolean inheritOutputDirs;
     File outputDir;
     File testOutputDir;
+    List<? extends IdeaDependency> dependencies;
 
     public String getName() {
         return name;
@@ -116,5 +118,13 @@ public class DefaultIdeaModule implements IdeaModule {
 
     public void setTestOutputDir(File testOutputDir) {
         this.testOutputDir = testOutputDir;
+    }
+
+    public List<? extends IdeaDependency> getDependencies() {
+        return dependencies;
+    }
+
+    public void setDependencies(List<? extends IdeaDependency> dependencies) {
+        this.dependencies = dependencies;
     }
 }

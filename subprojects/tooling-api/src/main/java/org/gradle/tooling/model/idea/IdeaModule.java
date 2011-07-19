@@ -83,18 +83,7 @@ public interface IdeaModule {
     File getTestOutputDir();
 
     /**
-     * Allows to retrieve JDK to use with the current module.
-     * <p/>
-     * Based on the following property -
-     * <a href="http://www.gradle.org/current/docs/groovydoc/org/gradle/plugins/ide/idea/model/Module.html#javaVersion>Module.javaVersion</a>.
-     *
-     * @return specific JDK to use with the current module; <code>null</code> as an indication that
-     *            {@link IdeaProject#getJdk() project jdk} should be used
+     * @return ordered collection of dependencies. Dependencies order affects module classpath
      */
-//  IdeaJdk getJdk();
-
-    /**
-     * @return ordered collection of current module dependencies. Dependencies order affects module classpath
-     */
-//  DomainObjectSet<? extends IdeaDependency> getDependencies();
+    List<? extends IdeaDependency> getDependencies();
 }

@@ -298,6 +298,15 @@ class IdeaModule {
         iml.generateTo = newOutputFile.parentFile
     }
 
+    /**
+     * resolves and returns the module's dependencies
+     *
+     * @return dependencies
+     */
+    public Set<Dependency> resolveDependencies() {
+        return new IdeaDependenciesProvider().provide(this, getPathFactory())
+    }
+
     final org.gradle.api.Project project
     PathFactory pathFactory
 
@@ -318,7 +327,7 @@ class IdeaModule {
         Set excludeFolders = getExcludeDirs().collect { path(it) }
         def outputDir = getOutputDir() ? path(getOutputDir()) : null
         def testOutputDir = getTestOutputDir() ? path(getTestOutputDir()) : null
-        Set dependencies = new IdeaDependenciesProvider().provide(this, getPathFactory())
+        Set dependencies = resolveDependencies()
 
         xmlModule.configure(contentRoot, sourceFolders, testSourceFolders, excludeFolders,
                 getInheritOutputDirs(), outputDir, testOutputDir, dependencies, getJavaVersion())
