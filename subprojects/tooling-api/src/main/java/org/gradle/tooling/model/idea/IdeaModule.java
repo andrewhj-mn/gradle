@@ -60,28 +60,19 @@ public interface IdeaModule {
     List<File> getExcludeDirectories();
 
     /**
-     * Allows to answer if current module should use {@link IdeaProject#getOutputDir() project output directory}.
-     * <p/>
-     * Based on the following property -
-     * <a href="http://www.gradle.org/current/docs/groovydoc/org/gradle/plugins/ide/idea/model/IdeaModule.html#inheritOutputDirs">IdeaModule.inheritOutputDirs</a>.
-     *
-     * @return information about whether current module should use {@link IdeaProject#getOutputDir() project output directory}. Default
-     *            value it <code>'true'</code>
+     * @return whether current module should inherit project's output directory.
      * @see #getOutputDir()
      * @see #getTestOutputDir()
      */
-//  boolean isInheritOutputDirs();
+    boolean getInheritOutputDirs();
 
     /**
-     * Allows to retrieve custom directory to store module's production classes and resources.
-     * <p/>
-     * Based on the following property -
-     * <a href="http://www.gradle.org/current/docs/groovydoc/org/gradle/plugins/ide/idea/model/IdeaModule.html#outputDir">IdeaModule.outputDir</a>
+     * directory to store module's production classes and resources.
      *
-     * @return location of the directory to store production output. Is expected to be non-<code>null</code> if
-     *            {@link #isInheritOutputDirs()} returns <code>'false'</code>
+     * @return directory to store production output. non-<code>null</code> if
+     *            {@link #getInheritOutputDirs()} returns <code>'false'</code>
      */
-//  File getOutputDir();
+    File getOutputDir();
 
     /**
      * Allows to retrieve custom directory to store module's test classes and resources.
@@ -90,7 +81,7 @@ public interface IdeaModule {
      * <a href="http://www.gradle.org/current/docs/groovydoc/org/gradle/plugins/ide/idea/model/IdeaModule.html#testOutputDir">IdeaModule.testOutputDir</a>
      *
      * @return location of the directory to store test output. Is expected to be non-<code>null</code> if
-     *            {@link #isInheritOutputDirs()} returns <code>'false'</code>
+     *            {@link #getInheritOutputDirs()} returns <code>'false'</code>
      */
 //  File getTestOutputDir();
 

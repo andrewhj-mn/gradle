@@ -32,8 +32,10 @@ public class DefaultIdeaModule implements IdeaModule {
     List<File> testDirectories;
     List<File> excludeDirectories;
     File contentRoot;
-    IdeaProject ideaProject;
+    IdeaProject project;
     File moduleFileDir;
+    boolean inheritOutputDirs;
+    File outputDir;
 
     public String getName() {
         return name;
@@ -76,11 +78,11 @@ public class DefaultIdeaModule implements IdeaModule {
     }
 
     public IdeaProject getProject() {
-        return ideaProject;
+        return project;
     }
 
-    public void setProject(IdeaProject ideaProject) {
-        this.ideaProject = ideaProject;
+    public void setProject(IdeaProject project) {
+        this.project = project;
     }
 
     public File getModuleFileDir() {
@@ -89,5 +91,21 @@ public class DefaultIdeaModule implements IdeaModule {
 
     public void setModuleFileDir(File moduleFileDir) {
         this.moduleFileDir = moduleFileDir;
+    }
+
+    public boolean getInheritOutputDirs() {
+        return inheritOutputDirs;
+    }
+
+    public void setInheritOutputDirs(boolean inheritOutputDirs) {
+        this.inheritOutputDirs = inheritOutputDirs;
+    }
+
+    public File getOutputDir() {
+        return outputDir;
+    }
+
+    public void setOutputDir(File outputDir) {
+        this.outputDir = outputDir;
     }
 }

@@ -78,7 +78,13 @@ subprojects {
 
     def "provides basic module information"() {
         def projectDir = dist.testDir
-        projectDir.file('build.gradle').text = "apply plugin: 'java'"
+        projectDir.file('build.gradle').text = """
+apply plugin: 'java'
+apply plugin: 'idea'
+
+idea.module.inheritOutputDirs = false
+idea.module.outputDir = file('someDir')
+"""
 
         when:
         IdeaProject project = withConnection { connection -> connection.getModel(IdeaProject.class) }
@@ -86,8 +92,10 @@ subprojects {
 
         then:
         module.contentRoot == projectDir
-        module.moduleFileDir == dist.testDir
         module.project.projectDirectory == project.projectDirectory
+        module.moduleFileDir == dist.testDir
+        !module.inheritOutputDirs
+        module.outputDir == projectDir.file('someDir')
     }
 
     def "provides source dir information"() {
