@@ -84,6 +84,7 @@ apply plugin: 'idea'
 
 idea.module.inheritOutputDirs = false
 idea.module.outputDir = file('someDir')
+idea.module.testOutputDir = file('someTestDir')
 """
 
         when:
@@ -96,6 +97,7 @@ idea.module.outputDir = file('someDir')
         module.moduleFileDir == dist.testDir
         !module.inheritOutputDirs
         module.outputDir == projectDir.file('someDir')
+        module.testOutputDir == projectDir.file('someTestDir')
     }
 
     def "provides source dir information"() {

@@ -75,15 +75,12 @@ public interface IdeaModule {
     File getOutputDir();
 
     /**
-     * Allows to retrieve custom directory to store module's test classes and resources.
-     * <p/>
-     * Based on the following property -
-     * <a href="http://www.gradle.org/current/docs/groovydoc/org/gradle/plugins/ide/idea/model/IdeaModule.html#testOutputDir">IdeaModule.testOutputDir</a>
+     * directory to store module's test classes and resources.
      *
-     * @return location of the directory to store test output. Is expected to be non-<code>null</code> if
+     * @return directory to store test output. Is expected to be non-<code>null</code> if
      *            {@link #getInheritOutputDirs()} returns <code>'false'</code>
      */
-//  File getTestOutputDir();
+    File getTestOutputDir();
 
     /**
      * Allows to retrieve JDK to use with the current module.

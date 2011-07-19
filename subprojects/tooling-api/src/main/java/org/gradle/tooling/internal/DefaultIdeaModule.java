@@ -36,6 +36,7 @@ public class DefaultIdeaModule implements IdeaModule {
     File moduleFileDir;
     boolean inheritOutputDirs;
     File outputDir;
+    File testOutputDir;
 
     public String getName() {
         return name;
@@ -107,5 +108,13 @@ public class DefaultIdeaModule implements IdeaModule {
 
     public void setOutputDir(File outputDir) {
         this.outputDir = outputDir;
+    }
+
+    public File getTestOutputDir() {
+        return testOutputDir;
+    }
+
+    public void setTestOutputDir(File testOutputDir) {
+        this.testOutputDir = testOutputDir;
     }
 }
