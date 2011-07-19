@@ -76,4 +76,31 @@ subprojects {
         project.modules.any { it.name == 'api' }
         project.modules.any { it.name == 'impl' }
     }
+
+    def "provides source dir information"() {
+        def projectDir = dist.testDir
+        projectDir.file('build.gradle').text = "apply plugin: 'java'"
+
+        projectDir.create {
+            src {
+                main {
+                    java {}
+                    resources {}
+                }
+                test {
+                    java {}
+                    resources {}
+                }
+            }
+        }
+
+        when:
+        IdeaProject project = withConnection { connection -> connection.getModel(IdeaProject.class) }
+        def module = project.modules[0]
+
+        then:
+        module.sourceDirectories.size() == 2
+        module.sourceDirectories.any { it.path.endsWith 'src/main/java' }
+        module.sourceDirectories.any { it.path.endsWith 'src/main/resources' }
+    }
 }

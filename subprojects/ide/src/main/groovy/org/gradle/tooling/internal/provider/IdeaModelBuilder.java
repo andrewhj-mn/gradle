@@ -26,6 +26,7 @@ import org.gradle.tooling.internal.DefaultIdeaModule;
 import org.gradle.tooling.internal.DefaultIdeaProject;
 import org.gradle.tooling.internal.protocol.ProjectVersion3;
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -128,13 +129,18 @@ public class IdeaModelBuilder implements BuildsModel {
 
         List<DefaultIdeaModule> modules = new LinkedList<DefaultIdeaModule>();
         for (IdeaModule module: projectModel.getModules()) {
-            DefaultIdeaModule defaultIdeaModule = new DefaultIdeaModule();
-            defaultIdeaModule.setName(module.getName());
-            modules.add(defaultIdeaModule);
+            buildModule(modules, module);
         }
         newProject.setModules(modules);
 
 //        addProject(project, newProject);
         return newProject;
+    }
+
+    private void buildModule(List<DefaultIdeaModule> modules, IdeaModule module) {
+        DefaultIdeaModule defaultIdeaModule = new DefaultIdeaModule();
+        defaultIdeaModule.setSourceDirectories(new LinkedList<File>(module.getSourceDirs()));
+        defaultIdeaModule.setName(module.getName());
+        modules.add(defaultIdeaModule);
     }
 }

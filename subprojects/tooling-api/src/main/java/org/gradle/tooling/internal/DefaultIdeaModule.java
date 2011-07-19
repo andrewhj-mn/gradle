@@ -18,12 +18,16 @@ package org.gradle.tooling.internal;
 
 import org.gradle.tooling.model.idea.IdeaModule;
 
+import java.io.File;
+import java.util.List;
+
 /**
  * @author: Szczepan Faber, created at: 7/19/11
  */
 public class DefaultIdeaModule implements IdeaModule {
 
     String name;
+    List<File> sourceDirectories;
 
     public String getName() {
         return name;
@@ -31,5 +35,13 @@ public class DefaultIdeaModule implements IdeaModule {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<File> getSourceDirectories() {
+        return sourceDirectories;
+    }
+
+    public void setSourceDirectories(List<File> sourceDirectories) {
+        this.sourceDirectories = sourceDirectories;
     }
 }
