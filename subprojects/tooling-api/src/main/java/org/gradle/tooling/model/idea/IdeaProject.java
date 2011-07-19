@@ -32,12 +32,16 @@ public interface IdeaProject extends Project {
   String getLanguageLevel();
 
   /**
-   * @return modules of the current project.
+   * modules of the current project.
+   *
+   * @return modules
    */
   List<? extends IdeaModule> getModules();
 
   /**
-   * @return not-<code>null</code> version of the JDK to use with the current project
+   * not-<code>null</code> version of the JDK to use with the current project
+   *
+   * @return jdk name
    */
   String getJavaVersion();
 

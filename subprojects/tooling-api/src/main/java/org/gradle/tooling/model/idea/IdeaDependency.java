@@ -29,7 +29,9 @@ public interface IdeaDependency {
     enum Scope {COMPILE, TEST, RUNTIME, PROVIDED}
 
     /**
-     * @return scope of the current dependency. Not-<code>null</code> all the time
+     * scope of the current dependency. Not-<code>null</code> all the time
+     *
+     * @return scope
      */
     Scope getScope();
 

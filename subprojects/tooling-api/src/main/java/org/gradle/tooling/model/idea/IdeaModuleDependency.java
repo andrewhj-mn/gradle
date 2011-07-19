@@ -23,5 +23,10 @@ package org.gradle.tooling.model.idea;
  */
 public interface IdeaModuleDependency extends IdeaDependency {
 
+    /**
+     * name of the dependnecy module
+     *
+     * @return name
+     */
     String getDependencyModuleName();
 }

@@ -27,42 +27,58 @@ import java.util.List;
 public interface IdeaModule {
 
     /**
-     * @return the module name; not-<code>null</code>
+     * the module name; not-<code>null</code>
+     *
+     * @return module name
      */
     String getName();
 
     /**
-     * @return the folder containing module file (*.iml)
+     * the folder containing module file (*.iml)
+     *
+     * @return module file dir
      */
     File getModuleFileDir();
 
     /**
-     * @return not-<code>null</code> instance of the project current module belongs to
+     * not-<code>null</code> instance of the project current module belongs to
+     *
+     * @return project
      */
     IdeaProject getProject();
 
     /**
+     * content root
+     *
      * @return content root
      */
     File getContentRoot();
 
     /**
+     * source dirs
+     *
      * @return source dirs
      */
     List<File> getSourceDirectories();
 
     /**
+     * test dirs
+     *
      * @return test dirs
      */
     List<File> getTestDirectories();
 
     /**
+     * test dirs
+     *
      * @return test dirs
      */
     List<File> getExcludeDirectories();
 
     /**
-     * @return whether current module should inherit project's output directory.
+     * whether current module should inherit project's output directory.
+     *
+     * @return inherit output dirs flag
      * @see #getOutputDir()
      * @see #getTestOutputDir()
      */
@@ -85,7 +101,9 @@ public interface IdeaModule {
     File getTestOutputDir();
 
     /**
-     * @return ordered collection of dependencies. Dependencies order affects module classpath
+     * ordered collection of dependencies. Dependencies order affects module classpath
+     *
+     * @return dependencies
      */
     List<? extends IdeaDependency> getDependencies();
 }
