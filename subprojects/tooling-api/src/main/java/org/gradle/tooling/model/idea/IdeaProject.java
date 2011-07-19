@@ -41,9 +41,4 @@ public interface IdeaProject extends Project {
    */
   String getJavaVersion();
 
-  /**
-   * @return compilation results target dir
-   */
-//  File getOutputDir();
-
 }

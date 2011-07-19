@@ -17,6 +17,8 @@
 package org.gradle.tooling.model.idea;
 
 /**
+ * dependency to a module in a project
+ *
  * @author: Szczepan Faber, created at: 7/19/11
  */
 public interface IdeaModuleDependency extends IdeaDependency {

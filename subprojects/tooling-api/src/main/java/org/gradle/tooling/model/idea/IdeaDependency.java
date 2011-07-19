@@ -17,10 +17,15 @@
 package org.gradle.tooling.model.idea;
 
 /**
+ * Idea dependency
+ *
  * @author: Szczepan Faber, created at: 7/19/11
  */
 public interface IdeaDependency {
 
+    /**
+     * dependency scope
+     */
     enum Scope {COMPILE, TEST, RUNTIME, PROVIDED}
 
     /**

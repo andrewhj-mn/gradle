@@ -14,31 +14,45 @@
  * limitations under the License.
  */
 
-package org.gradle.tooling.internal;
+package org.gradle.tooling.internal.idea;
 
-import org.gradle.tooling.model.idea.IdeaModuleDependency;
+import org.gradle.tooling.model.idea.IdeaLibraryDependency;
+
+import java.io.File;
 
 /**
  * @author: Szczepan Faber, created at: 7/19/11
  */
-public class DefaultIdeaModuleDependency implements IdeaModuleDependency {
+public class DefaultIdeaLibraryDependency implements IdeaLibraryDependency {
 
+    private File file;
+    private File source;
+    private File javadoc;
     private Scope scope;
-    private String dependencyModuleName;
     private boolean exported;
 
-    public DefaultIdeaModuleDependency(Scope scope, String dependencyModuleName, boolean exported) {
+    public DefaultIdeaLibraryDependency(File file, File source, File javadoc, Scope scope, boolean exported) {
+        this.file = file;
+        this.source = source;
+        this.javadoc = javadoc;
         this.scope = scope;
-        this.dependencyModuleName = dependencyModuleName;
         this.exported = exported;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public File getSource() {
+        return source;
+    }
+
+    public File getJavadoc() {
+        return javadoc;
     }
 
     public Scope getScope() {
         return scope;
-    }
-
-    public String getDependencyModuleName() {
-        return dependencyModuleName;
     }
 
     public boolean getExported() {

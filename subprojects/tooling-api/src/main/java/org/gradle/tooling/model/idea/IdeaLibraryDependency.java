@@ -19,6 +19,8 @@ package org.gradle.tooling.model.idea;
 import java.io.File;
 
 /**
+ * Library dependency, for example, some jar file
+ *
  * @author: Szczepan Faber, created at: 7/19/11
  */
 public interface IdeaLibraryDependency extends IdeaDependency {

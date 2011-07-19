@@ -20,6 +20,8 @@ import java.io.File;
 import java.util.List;
 
 /**
+ * Model for idea module information
+ *
  * @author: Szczepan Faber, created at: 7/19/11
  */
 public interface IdeaModule {
