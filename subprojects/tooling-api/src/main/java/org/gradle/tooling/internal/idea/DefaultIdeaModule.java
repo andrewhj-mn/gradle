@@ -21,12 +21,15 @@ import org.gradle.tooling.model.idea.IdeaModule;
 import org.gradle.tooling.model.idea.IdeaProject;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author: Szczepan Faber, created at: 7/19/11
  */
-public class DefaultIdeaModule implements IdeaModule {
+public class DefaultIdeaModule implements IdeaModule, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     String name;
     List<File> sourceDirectories;

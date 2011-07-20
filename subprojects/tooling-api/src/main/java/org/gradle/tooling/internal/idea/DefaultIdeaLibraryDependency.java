@@ -19,11 +19,14 @@ package org.gradle.tooling.internal.idea;
 import org.gradle.tooling.model.idea.IdeaLibraryDependency;
 
 import java.io.File;
+import java.io.Serializable;
 
 /**
  * @author: Szczepan Faber, created at: 7/19/11
  */
-public class DefaultIdeaLibraryDependency implements IdeaLibraryDependency {
+public class DefaultIdeaLibraryDependency implements IdeaLibraryDependency, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private File file;
     private File source;

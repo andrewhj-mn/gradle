@@ -25,6 +25,8 @@ import java.util.List;
 
 public class DefaultIdeaProject implements IdeaProject, Serializable, ProjectVersion3 {
 
+    private static final long serialVersionUID = 1L;
+
     private String path;
     private String name;
     private String description;
