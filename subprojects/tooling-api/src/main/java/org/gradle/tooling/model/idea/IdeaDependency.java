@@ -24,21 +24,16 @@ package org.gradle.tooling.model.idea;
 public interface IdeaDependency {
 
     /**
-     * dependency scope
-     */
-    enum Scope {COMPILE, TEST, RUNTIME, PROVIDED}
-
-    /**
      * scope of the current dependency. Not-<code>null</code> all the time
      *
      * @return scope
      */
-    Scope getScope();
+    String getScope();
 
     /**
      * Allows to check if current dependency is transitive, i.e. is visible to the module which depends on module that has current dependency.
      *
      * @return <code>true</code> if current dependency is transitive; <code>false</code> otherwise
      */
-    boolean getExported();
+    Boolean getExported();
 }

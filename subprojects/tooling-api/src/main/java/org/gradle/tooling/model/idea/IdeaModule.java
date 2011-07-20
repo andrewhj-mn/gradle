@@ -103,9 +103,16 @@ public interface IdeaModule {
     File getTestOutputDir();
 
     /**
-     * ordered collection of dependencies. Dependencies order affects module classpath
+     * ordered collection of module dependencies
      *
      * @return dependencies
      */
-    DomainObjectSet<? extends IdeaDependency> getDependencies();
+    DomainObjectSet<? extends IdeaModuleDependency> getModuleDependencies();
+
+    /**
+     * ordered collection of library dependencies
+     *
+     * @return dependencies
+     */
+    DomainObjectSet<? extends IdeaLibraryDependency> getLibraryDependencies();
 }

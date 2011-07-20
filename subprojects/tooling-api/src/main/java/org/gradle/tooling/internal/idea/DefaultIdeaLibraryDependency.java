@@ -31,10 +31,10 @@ public class DefaultIdeaLibraryDependency implements IdeaLibraryDependency, Seri
     private File file;
     private File source;
     private File javadoc;
-    private Scope scope;
+    private String scope;
     private boolean exported;
 
-    public DefaultIdeaLibraryDependency(File file, File source, File javadoc, Scope scope, boolean exported) {
+    public DefaultIdeaLibraryDependency(File file, File source, File javadoc, String scope, boolean exported) {
         this.file = file;
         this.source = source;
         this.javadoc = javadoc;
@@ -54,11 +54,11 @@ public class DefaultIdeaLibraryDependency implements IdeaLibraryDependency, Seri
         return javadoc;
     }
 
-    public Scope getScope() {
+    public String getScope() {
         return scope;
     }
 
-    public boolean getExported() {
+    public Boolean getExported() {
         return exported;
     }
 

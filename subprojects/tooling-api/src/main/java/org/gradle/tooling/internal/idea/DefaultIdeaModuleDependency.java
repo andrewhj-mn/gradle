@@ -27,17 +27,17 @@ public class DefaultIdeaModuleDependency implements IdeaModuleDependency, Serial
 
     private static final long serialVersionUID = 1L;
 
-    private Scope scope;
+    private String scope;
     private String dependencyModuleName;
     private boolean exported;
 
-    public DefaultIdeaModuleDependency(Scope scope, String dependencyModuleName, boolean exported) {
+    public DefaultIdeaModuleDependency(String scope, String dependencyModuleName, boolean exported) {
         this.scope = scope;
         this.dependencyModuleName = dependencyModuleName;
         this.exported = exported;
     }
 
-    public Scope getScope() {
+    public String getScope() {
         return scope;
     }
 
@@ -45,7 +45,7 @@ public class DefaultIdeaModuleDependency implements IdeaModuleDependency, Serial
         return dependencyModuleName;
     }
 
-    public boolean getExported() {
+    public Boolean getExported() {
         return exported;
     }
 

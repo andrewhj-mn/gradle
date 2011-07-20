@@ -17,13 +17,15 @@
 package org.gradle.tooling.internal.idea;
 
 import org.gradle.tooling.model.DomainObjectSet;
-import org.gradle.tooling.model.idea.IdeaDependency;
+import org.gradle.tooling.model.idea.IdeaLibraryDependency;
 import org.gradle.tooling.model.idea.IdeaModule;
+import org.gradle.tooling.model.idea.IdeaModuleDependency;
 import org.gradle.tooling.model.idea.IdeaProject;
 import org.gradle.tooling.model.internal.ImmutableDomainObjectSet;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -43,7 +45,8 @@ public class DefaultIdeaModule implements IdeaModule, Serializable {
     boolean inheritOutputDirs;
     File outputDir;
     File testOutputDir;
-    List<? extends IdeaDependency> dependencies;
+    List<? extends IdeaLibraryDependency> libraryDependencies = new LinkedList<IdeaLibraryDependency>();
+    List<? extends IdeaModuleDependency> moduleDependencies = new LinkedList<IdeaModuleDependency>();
 
     public String getName() {
         return name;
@@ -125,11 +128,19 @@ public class DefaultIdeaModule implements IdeaModule, Serializable {
         this.testOutputDir = testOutputDir;
     }
 
-    public DomainObjectSet<? extends IdeaDependency> getDependencies() {
-        return new ImmutableDomainObjectSet<IdeaDependency>(dependencies);
+    public DomainObjectSet<? extends IdeaLibraryDependency> getLibraryDependencies() {
+        return new ImmutableDomainObjectSet<IdeaLibraryDependency>(libraryDependencies);
     }
 
-    public void setDependencies(List<? extends IdeaDependency> dependencies) {
-        this.dependencies = dependencies;
+    public DomainObjectSet<? extends IdeaModuleDependency> getModuleDependencies() {
+        return new ImmutableDomainObjectSet<IdeaModuleDependency>(moduleDependencies);
+    }
+
+    public void setLibraryDependencies(List<? extends IdeaLibraryDependency> libraryDependencies) {
+        this.libraryDependencies = libraryDependencies;
+    }
+
+    public void setModuleDependencies(List<? extends IdeaModuleDependency> moduleDependencies) {
+        this.moduleDependencies = moduleDependencies;
     }
 }

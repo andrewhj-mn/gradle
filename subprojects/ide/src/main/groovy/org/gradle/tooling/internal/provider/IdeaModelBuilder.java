@@ -25,7 +25,8 @@ import org.gradle.tooling.internal.idea.DefaultIdeaModule;
 import org.gradle.tooling.internal.idea.DefaultIdeaModuleDependency;
 import org.gradle.tooling.internal.idea.DefaultIdeaProject;
 import org.gradle.tooling.internal.protocol.ProjectVersion3;
-import org.gradle.tooling.model.idea.IdeaDependency;
+import org.gradle.tooling.model.idea.IdeaLibraryDependency;
+import org.gradle.tooling.model.idea.IdeaModuleDependency;
 import org.gradle.tooling.model.internal.ImmutableDomainObjectSet;
 
 import java.io.File;
@@ -83,24 +84,26 @@ public class IdeaModelBuilder implements BuildsModel {
         defaultIdeaModule.setOutputDir(module.getOutputDir());
         defaultIdeaModule.setTestOutputDir(module.getTestOutputDir());
 
-        List<IdeaDependency> dependencies = new LinkedList<IdeaDependency>();
         Set<Dependency> resolved = module.resolveDependencies();
         for (Dependency dependency: resolved) {
             if (dependency instanceof ModuleLibrary) {
+                List<IdeaLibraryDependency> dependencies = new LinkedList<IdeaLibraryDependency>();
                 File file = ((ModuleLibrary) dependency).getSingleJar();
                 File javadoc = ((ModuleLibrary) dependency).getSingleJavadoc();
                 File source = ((ModuleLibrary) dependency).getSingleSource();
                 boolean exported = ((ModuleLibrary) dependency).getExported();
-                IdeaDependency.Scope scope = IdeaDependency.Scope.valueOf(((ModuleLibrary) dependency).getScope());
+                String scope = ((ModuleLibrary) dependency).getScope();
                 dependencies.add(new DefaultIdeaLibraryDependency(file, source, javadoc, scope, exported));
+                defaultIdeaModule.setLibraryDependencies(dependencies);
             } else if (dependency instanceof ModuleDependency) {
+                List<IdeaModuleDependency> dependencies = new LinkedList<IdeaModuleDependency>();
                 String name = ((ModuleDependency) dependency).getName();
                 boolean exported = ((ModuleDependency) dependency).getExported();
-                IdeaDependency.Scope scope = IdeaDependency.Scope.valueOf(((ModuleDependency) dependency).getScope());
+                String scope = ((ModuleDependency) dependency).getScope();
                 dependencies.add(new DefaultIdeaModuleDependency(scope, name, exported));
+                defaultIdeaModule.setModuleDependencies(dependencies);
             }
         }
-        defaultIdeaModule.setDependencies(dependencies);
 
         modules.add(defaultIdeaModule);
     }

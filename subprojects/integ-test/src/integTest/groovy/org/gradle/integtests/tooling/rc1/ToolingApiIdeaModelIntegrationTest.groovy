@@ -99,22 +99,21 @@ project(':impl') {
         def module = project.modules.find { it.name == 'impl' }
 
         then:
-        def deps = module.dependencies.all.sort { a,b ->
-            a.hasProperty("javadoc") ? 0 : 1
-        }
-        deps.size() == 2
+        def lib = module.libraryDependencies[0]
 
-        deps[0].file.exists()
-        deps[0].file.path.endsWith('junit-4.5.jar')
+        lib.file.exists()
+        lib.file.path.endsWith('junit-4.5.jar')
         //TODO SF find library that has javadocs :)
-//        deps[0].javadoc.exists()
-        deps[0].source.exists()
-        deps[0].source.path.endsWith('junit-4.5-sources.jar')
-        deps[0].scope.toString() == 'TEST'
+//        lib.javadoc.exists()
+        lib.source.exists()
+        lib.source.path.endsWith('junit-4.5-sources.jar')
+        lib.scope.toString() == 'TEST'
 
-        deps[1].dependencyModuleName == 'api'
-        deps[1].scope.toString() == 'COMPILE'
-        deps[1].exported
+        def md = module.moduleDependencies[0]
+
+        md.dependencyModuleName == 'api'
+        md.scope.toString() == 'COMPILE'
+        md.exported
     }
 
     def "provides basic module information"() {
