@@ -51,10 +51,10 @@ public class DefaultIdeaModuleDependency implements IdeaModuleDependency, Serial
 
     @Override
     public String toString() {
-        return "DefaultIdeaModuleDependency{" +
-                "scope=" + scope +
-                ", dependencyModuleName='" + dependencyModuleName + '\'' +
-                ", exported=" + exported +
-                '}';
+        return "DefaultIdeaModuleDependency{"
+                + "scope=" + scope
+                + ", dependencyModuleName='" + dependencyModuleName + '\''
+                + ", exported=" + exported
+                + '}';
     }
 }

@@ -64,12 +64,12 @@ public class DefaultIdeaLibraryDependency implements IdeaLibraryDependency, Seri
 
     @Override
     public String toString() {
-        return "DefaultIdeaLibraryDependency{" +
-                "file=" + file +
-                ", source=" + source +
-                ", javadoc=" + javadoc +
-                ", scope=" + scope +
-                ", exported=" + exported +
-                '}';
+        return "DefaultIdeaLibraryDependency{"
+                + "file=" + file
+                + ", source=" + source
+                + ", javadoc=" + javadoc
+                + ", scope=" + scope
+                + ", exported=" + exported
+                + '}';
     }
 }
