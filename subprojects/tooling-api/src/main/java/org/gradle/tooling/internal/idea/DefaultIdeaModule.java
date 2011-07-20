@@ -16,9 +16,11 @@
 
 package org.gradle.tooling.internal.idea;
 
+import org.gradle.tooling.model.DomainObjectSet;
 import org.gradle.tooling.model.idea.IdeaDependency;
 import org.gradle.tooling.model.idea.IdeaModule;
 import org.gradle.tooling.model.idea.IdeaProject;
+import org.gradle.tooling.model.internal.ImmutableDomainObjectSet;
 
 import java.io.File;
 import java.io.Serializable;
@@ -99,7 +101,7 @@ public class DefaultIdeaModule implements IdeaModule, Serializable {
         this.moduleFileDir = moduleFileDir;
     }
 
-    public boolean getInheritOutputDirs() {
+    public Boolean getInheritOutputDirs() {
         return inheritOutputDirs;
     }
 
@@ -123,8 +125,8 @@ public class DefaultIdeaModule implements IdeaModule, Serializable {
         this.testOutputDir = testOutputDir;
     }
 
-    public List<? extends IdeaDependency> getDependencies() {
-        return dependencies;
+    public DomainObjectSet<? extends IdeaDependency> getDependencies() {
+        return new ImmutableDomainObjectSet<IdeaDependency>(dependencies);
     }
 
     public void setDependencies(List<? extends IdeaDependency> dependencies) {

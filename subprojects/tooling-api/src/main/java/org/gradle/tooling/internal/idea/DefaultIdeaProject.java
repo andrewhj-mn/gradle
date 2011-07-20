@@ -16,12 +16,12 @@
 package org.gradle.tooling.internal.idea;
 
 import org.gradle.tooling.internal.protocol.ProjectVersion3;
+import org.gradle.tooling.model.DomainObjectSet;
 import org.gradle.tooling.model.idea.IdeaModule;
 import org.gradle.tooling.model.idea.IdeaProject;
 
 import java.io.File;
 import java.io.Serializable;
-import java.util.List;
 
 public class DefaultIdeaProject implements IdeaProject, Serializable, ProjectVersion3 {
 
@@ -33,7 +33,7 @@ public class DefaultIdeaProject implements IdeaProject, Serializable, ProjectVer
     private File projectDirectory;
     private String javaVersion;
     private String languageLevel;
-    private List<? extends IdeaModule> modules;
+    private DomainObjectSet<? extends IdeaModule> modules;
 
     public DefaultIdeaProject(String name, String path, String description, File projectDirectory) {
         this.path = path;
@@ -74,11 +74,11 @@ public class DefaultIdeaProject implements IdeaProject, Serializable, ProjectVer
         this.languageLevel = languageLevel;
     }
 
-    public List<? extends IdeaModule> getModules() {
+    public DomainObjectSet<? extends IdeaModule> getModules() {
         return modules;
     }
 
-    public void setModules(List<? extends IdeaModule> modules) {
+    public void setModules(DomainObjectSet<? extends IdeaModule> modules) {
         this.modules = modules;
     }
 }

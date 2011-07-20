@@ -61,4 +61,15 @@ public class DefaultIdeaLibraryDependency implements IdeaLibraryDependency, Seri
     public boolean getExported() {
         return exported;
     }
+
+    @Override
+    public String toString() {
+        return "DefaultIdeaLibraryDependency{" +
+                "file=" + file +
+                ", source=" + source +
+                ", javadoc=" + javadoc +
+                ", scope=" + scope +
+                ", exported=" + exported +
+                '}';
+    }
 }

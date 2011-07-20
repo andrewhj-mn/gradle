@@ -26,11 +26,10 @@ import org.gradle.tooling.internal.idea.DefaultIdeaModuleDependency;
 import org.gradle.tooling.internal.idea.DefaultIdeaProject;
 import org.gradle.tooling.internal.protocol.ProjectVersion3;
 import org.gradle.tooling.model.idea.IdeaDependency;
+import org.gradle.tooling.model.internal.ImmutableDomainObjectSet;
 
 import java.io.File;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author: Szczepan Faber, created at: 7/19/11
@@ -58,19 +57,20 @@ public class IdeaModelBuilder implements BuildsModel {
         IdeaProject projectModel = ideaModel.getProject();
 
         DefaultIdeaProject newProject = new DefaultIdeaProject(projectModel.getName(), project.getPath(), null, project.getProjectDir());
+
         newProject.setJavaVersion(projectModel.getJavaVersion().toString());
         newProject.setLanguageLevel(projectModel.getLanguageLevel().getFormatted());
 
-        List<DefaultIdeaModule> modules = new LinkedList<DefaultIdeaModule>();
+        Set<DefaultIdeaModule> modules = new LinkedHashSet<DefaultIdeaModule>();
         for (IdeaModule module: projectModel.getModules()) {
             buildModule(modules, module, newProject);
         }
-        newProject.setModules(modules);
+        newProject.setModules(new ImmutableDomainObjectSet<org.gradle.tooling.model.idea.IdeaModule>(modules));
 
         return newProject;
     }
 
-    private void buildModule(List<DefaultIdeaModule> modules, IdeaModule module, DefaultIdeaProject newProject) {
+    private void buildModule(Collection<DefaultIdeaModule> modules, IdeaModule module, DefaultIdeaProject newProject) {
         DefaultIdeaModule defaultIdeaModule = new DefaultIdeaModule();
         defaultIdeaModule.setSourceDirectories(new LinkedList<File>(module.getSourceDirs()));
         defaultIdeaModule.setTestDirectories(new LinkedList<File>(module.getTestSourceDirs()));

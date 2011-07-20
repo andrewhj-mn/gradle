@@ -15,9 +15,8 @@
  */
 package org.gradle.tooling.model.idea;
 
+import org.gradle.tooling.model.DomainObjectSet;
 import org.gradle.tooling.model.Project;
-
-import java.util.List;
 
 /**
  * First hacky approach to provide idea information
@@ -36,7 +35,7 @@ public interface IdeaProject extends Project {
    *
    * @return modules
    */
-  List<? extends IdeaModule> getModules();
+  DomainObjectSet<? extends IdeaModule> getModules();
 
   /**
    * not-<code>null</code> version of the JDK to use with the current project

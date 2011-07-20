@@ -99,8 +99,7 @@ project(':impl') {
         def module = project.modules.find { it.name == 'impl' }
 
         then:
-        //TODO SF the dependencies in our IDE model must not be modelled as Set because the order matters!
-        def deps = module.dependencies.sort { a,b ->
+        def deps = module.dependencies.all.sort { a,b ->
             a.hasProperty("javadoc") ? 0 : 1
         }
         deps.size() == 2

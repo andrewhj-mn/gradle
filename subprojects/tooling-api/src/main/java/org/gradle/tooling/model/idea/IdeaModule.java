@@ -16,6 +16,8 @@
 
 package org.gradle.tooling.model.idea;
 
+import org.gradle.tooling.model.DomainObjectSet;
+
 import java.io.File;
 import java.util.List;
 
@@ -82,7 +84,7 @@ public interface IdeaModule {
      * @see #getOutputDir()
      * @see #getTestOutputDir()
      */
-    boolean getInheritOutputDirs();
+    Boolean getInheritOutputDirs();
 
     /**
      * directory to store module's production classes and resources.
@@ -105,5 +107,5 @@ public interface IdeaModule {
      *
      * @return dependencies
      */
-    List<? extends IdeaDependency> getDependencies();
+    DomainObjectSet<? extends IdeaDependency> getDependencies();
 }
